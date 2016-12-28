@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>counter prop - Mithril.js</title>
+
+<script src="mithril.min.js"></script>
+<!--[if IE]><script src="es5-shim.min.js"></script><![endif]-->
+
+<body>
+<div id="$counterElement"></div>
+</body>
+
+<script>
+
+//コンポーネント定義
+var counterComponent = {
+    //コントローラ
+    controller: function () {
+        var ctrl = this;
+
+        //カウンター
+        ctrl.counter = m.prop(0);
+
+        //タイマーでカウントアップ
+        setInterval(function () {
+            ctrl.counter(ctrl.counter() + 1);
+            m.redraw(true);
+        }, 1000);
+    },
+    //ビュー
+    view: function (ctrl) {
+        return m('div', 'count: ' + ctrl.counter());
+    }
+};
+
+//HTML要素にコンポーネントをマウント
+m.mount($counterElement, counterComponent);
+
+</script>
